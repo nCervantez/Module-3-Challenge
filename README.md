@@ -2,6 +2,10 @@
 PyBank and PyPoll Analysis Scripts
 ------------------------------------------------------------------------------------------------
 
+Purpose
+-----------------------------------------------------------------------------------
+The purpose of creating these scripts is to allow for fast and accurate analysis of CSV files that contain data related to elections, and accounting. Each script can run through a set of data that can be altered, and will still output correct information relative to the new data set.
+
 Main Function
 -----------------------------------------------------------------------------------
 
