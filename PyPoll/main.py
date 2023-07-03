@@ -38,3 +38,24 @@ with open(election_path) as csv_file:
         if row[2] not in candidates:
             candidates.append(row[2])
 
+#sets a dictionary with the candidates and a starting vote count of 0 for each candidate
+votes = {}
+
+for candidate in candidates:
+    votes[candidate]=0
+
+#will add a vote count to the appropriate candidate
+with open(election_path) as csv_file:
+    csvreader = csv.reader(csv_file, delimiter=",")
+
+    #Skips the header in the csv file
+    csv_header = next(csv_file)
+
+    
+    #will check if candidate is in the votes dict and add a vote for each ballot
+    for row in csvreader:
+        for candidate in votes:
+            if str(row[2]) == candidate:
+                votes[candidate] += 1
+
+print(votes)
