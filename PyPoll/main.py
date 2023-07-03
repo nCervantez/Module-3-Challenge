@@ -18,7 +18,7 @@ with open(election_path) as csv_file:
 
     #Skips the header in the csv file
     csv_header = next(csv_file)
-    #prints the total number of rows in the csv file
+    #prints the total number of rows in the csv file which will be the total number of votes
     total = len(list(csvreader))
     print(f"Total Votes:  {total}")
 
@@ -76,7 +76,7 @@ for key, value in new_votes.items():
 for key, value in new_votes.items():
     print(f"{key}: {round(value[1],3)}% ({value[0]})")
 
-
+#This will find the max value in the dict and pull the associated 'key' or candidate
 winner = max(votes, key=votes.get)
 
 print("--------------------------")
