@@ -57,15 +57,21 @@ with open(election_path) as csv_file:
         for candidate in votes:
             if str(row[2]) == candidate:
                 votes[candidate] += 1
+#this will convert the votes dict to a dict that has lists for values so that i 
+#may add teh percentages associated with each candidate
+new_votes = {key: [value] for key, value in votes.items()}
 
-print(votes)
-
+#this will calculate the percentage vote for each candidate
 percentages = []
 for value in votes.values():
     percentage = ((value / total) * 100)
     percentages.append(percentage)
 
+#This will add the percentage values in the list 'percentages' to the keys in the new_votes dictionary
+for key, value in new_votes.items():
+    value.append(percentages.pop(0))
 
+print(new_votes)
 
 
 winner = max(votes, key=votes.get)
