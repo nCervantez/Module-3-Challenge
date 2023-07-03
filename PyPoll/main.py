@@ -59,3 +59,17 @@ with open(election_path) as csv_file:
                 votes[candidate] += 1
 
 print(votes)
+
+percentages = []
+for value in votes.values():
+    percentage = ((value / total) * 100)
+    percentages.append(percentage)
+
+
+
+
+winner = max(votes, key=votes.get)
+
+print("--------------------------")
+print(f"Winner: {winner}")
+print("--------------------------")
