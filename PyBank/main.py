@@ -34,11 +34,11 @@ with open(budget_path) as csv_file:
     for row in csvreader:
         Profit += int(row[1])
 
-    print(f"Total: {Profit}")
+    print(f"Total: ${Profit}")
 
 #This will calculate the average change and print in terminal    
 change = (Profit / totalM)
-print(f"Average Change: {round(change, 2)}")
+print(f"Average Change: ${round(change, 2)}")
 
 #This will go through each line and compare the last value and will
 #store whichever value is higher until it finds the highest value (max)
@@ -54,7 +54,7 @@ with open(budget_path) as csv_file:
             highmonth = row[0]
             max_increase = row[1]
 
-    print(f"Greatest Increase in Profits: {highmonth} ({max_increase})")  
+    print(f"Greatest Increase in Profits: {highmonth} (${max_increase})")  
 
 #This will go through each line and compare the last value and will
 #store whichever value is lower until it finds the lowest value (minimum)
@@ -70,7 +70,7 @@ with open(budget_path) as csv_file:
             lowmonth = row[0]
             max_decrease = row[1]
 
-    print(f"Greatest Decrease in Profits: {lowmonth} ({max_decrease})")  
+    print(f"Greatest Decrease in Profits: {lowmonth} (${max_decrease})")  
 
 #Path for the output file.
 output_path = os.path.join("analysis", "budget_analysis.txt")
@@ -80,9 +80,9 @@ with open(output_path, "w",) as datafile:
     #List for everything that will be written to the text file. str() functions to cast my
     #variables as strings and write them into the text file.
     data = ["Financial Analysis ", "------------------------------",
-            "Total months: " + str(totalM), "Total: "+ str(Profit),"Average Change: " + str(round(change,2)),
-            "Greatest Increase in Profits: " + str(highmonth) +" (" + str(max_increase) + ")",
-            "Greatest Decrease in Profits: " + str(lowmonth) +" (" + str(max_decrease) + ")"
+            "Total months: " + str(totalM), "Total: $"+ str(Profit),"Average Change: $" + str(round(change,2)),
+            "Greatest Increase in Profits: " + str(highmonth) +" ($" + str(max_increase) + ")",
+            "Greatest Decrease in Profits: " + str(lowmonth) +" ($" + str(max_decrease) + ")"
             ]
     for line in data:
         datafile.write(line + '\n')
