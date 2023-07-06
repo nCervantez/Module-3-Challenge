@@ -1,6 +1,7 @@
 #Imported modules to allow python to read csv files, and create a path to the file.
 import os
 import csv
+from re import M
 
 #setting the path for the file
 budget_path = os.path.join("Resources", "budget_data.csv")
@@ -40,8 +41,7 @@ with open(budget_path) as csv_file:
 change = (Profit / totalM)
 print(f"Average Change: ${round(change, 2)}")
 
-#This will go through each line and compare the last value and will
-#store whichever value is higher until it finds the highest value (max)
+#This will run through each line and compare it to the last value to find the change. 
 with open(budget_path) as csv_file:
     csvreader = csv.reader(csv_file, delimiter=",")
 
@@ -49,29 +49,30 @@ with open(budget_path) as csv_file:
     csv_header = next(csv_file)
 
     max_increase = 0
-    for row in csvreader:
-        if int(row[1]) > int(max_increase):
-            highmonth = row[0]
-            max_increase = row[1]
-
-    print(f"Greatest Increase in Profits: {highmonth} (${max_increase})")  
-
-#This will go through each line and compare the last value and will
-#store whichever value is lower until it finds the lowest value (minimum)
-with open(budget_path) as csv_file:
-    csvreader = csv.reader(csv_file, delimiter=",")
-
-    #Skips the header in the csv file
-    csv_header = next(csv_file)
-
+    previous_row = None
+    change = 0
+    previous_row = 0
     max_decrease = 0
+    highmonth = None
+    lowmonth = None
+
     for row in csvreader:
-        if int(row[1]) < int(max_decrease):
-            lowmonth = row[0]
-            max_decrease = row[1]
-
-    print(f"Greatest Decrease in Profits: {lowmonth} (${max_decrease})")  
-
+        if previous_row is not None:
+            #will find the change in the values positive or negative
+            change = int(row[1]) - previous_row
+            #this will store the highest positive change by comparing the change to the previous high change 
+            if change > 0 and change > max_increase:
+                max_increase = change
+                highmonth = row[0]
+            #this will store the lowesr negative change by comparing the change to the previous low change
+            elif change < 0 and change < max_decrease:
+                max_decrease = change
+                lowmonth = row[0]
+        #will store the first value as the previous row as there is nothing prior to the first value
+        previous_row = int(row[1])
+    print(f"Greatest Increase in Profits: {highmonth} (${max_increase})")
+    print(f"Greatest Decrease in Profits: {lowmonth} (${max_decrease})")
+  
 #Path for the output file.
 output_path = os.path.join("analysis", "budget_analysis.txt")
 
